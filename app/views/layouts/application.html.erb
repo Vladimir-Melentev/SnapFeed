@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>SnapFeed</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -10,15 +11,24 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <nav>
-      <ul>
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Posts", posts_path %></li>
-      </ul>
-    </nav>
+  <body style="background-color: rgb(241, 236, 230);">
+  <header class="p-3 bg-dark text-white">
+    <div class="container">
+      <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><%= link_to 'Home', root_path, class: 'nav-link px-2 text-white' %></li>
+          <li><%= link_to 'Feed', posts_path, class: 'nav-link px-2 text-white' %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <main>
+    <main class="container mt-3">
+      <% flash.each do |k, v| %>
+        <%= tag.div v, class: "alert alert-#{k}", role: 'alert' %>
+      <% end %>
+
+
       <%= yield %>
     </main>
   </body>

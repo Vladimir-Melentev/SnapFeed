@@ -1,9 +1,60 @@
-<h1><%= @post.title %></h1>
+<h3 class="mb-2 text-danger">
+  <%= @post.title %>
+</h3>
 
-<p>
+  <p class="lead my-2 mb-4">
+    <%= @post.body %>
+  </p>
+
+<%= link_to "Show", post_path(@post), class: 'btn btn-dark' %>
+<%= link_to "Edit", edit_post_path(@post), class: 'btn btn-secondary' %>
+<%= link_to "Delete", post_path(@post), class: 'btn btn-danger',
+            data: {method: :delete, confirm: "Are you sure?"} %>
+
+<div class="mt-2 mb-4 text-secondary">
   <time datetime="<%= @post.formatted_created_at %>">
     <%= @post.formatted_created_at %>
   </time>
-  <br>
-  <%= @post.body %>
-</p>
+</div>
+
+<hr class="my-4">
+
+<h5 class="mb-4 mt-4 text-danger">
+  Write your comment
+</h5>
+
+<%= render 'shared/errors', object: @comment %>
+
+<%= form_with model: [@post, @comment] do |f| %>
+  <div class="col-sm-10">
+      <%= f.text_area :body, class: 'form-control' %>
+  </div>
+
+  <div class="mb-4 mt-4">
+  <%= f.submit "Submit comment", class: 'btn btn-dark' %>
+  </div>
+  <% end %>
+
+<hr class="my-3">
+<h3 class="mb-4 mt-4 text-danger">Comments</h3>
+
+<% @comments.each do |comment| %>
+  <article class="card mt-3">
+    <div class="card-body">
+      <section class="card-text">
+        <time datetime="<%= comment.formatted_created_at %>">
+          <small><%= comment.formatted_created_at %></small>
+        </time>
+
+        <p class="mb-4 mt-4">
+          <%= comment.body %>
+        </p>
+      </section>
+
+      <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'btn btn-secondary btn-sm'%>
+      <%= link_to 'Delete', post_comment_path(@post, comment), class: 'btn btn-danger btn-sm',
+                  data: {method: :delete, confirm: 'Are you sure?'} %>
+    </div>
+  </article>
+
+<% end %>

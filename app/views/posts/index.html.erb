@@ -1,18 +1,30 @@
-<h1>All posts</h1>
+<h2 class="mb-4 text-danger">Feed</h2>
+
+<%= link_to "New post", new_post_path, class:'btn btn-dark'%>
 
 <% @posts.each do |post| %>
+<article class="card mt-3">
+  <div class="card-body">
+    <h5><%= post.title %></h5>
 
-  <time datetime="<%= post.formatted_created_at %>">
-    <%= post.formatted_created_at %>
-  </time>
+    <section class="card-text">
 
-  <h2><%= post.title %></h2>
 
-  <P>
-    <%= post.body %>
-    <br>
-    <%= link_to "Show", post_path(post) %>
-    <%= link_to "Edit", edit_post_path(post) %>
-    <%= link_to "Delete", post_path(post), data: {method: :delete, confirm: "Are you sure?"} %>
-  </P>
+      <p class="my-2">
+        <%= post.body %>
+      </p>
+    </section>
+
+      <%= link_to "Show", post_path(post), class: 'btn btn-dark' %>
+      <%= link_to "Edit", edit_post_path(post), class: 'btn btn-secondary' %>
+      <%= link_to "Delete", post_path(post), class: 'btn btn-danger',
+                  data: {method: :delete, confirm: "Are you sure?"} %>
+  </div>
+
+  <div class="mx-3 mb-4 text-secondary">
+    <time datetime="<%= post.formatted_created_at %>">
+      <small><%= post.formatted_created_at %></small>
+    </time>
+  </div>
+</article>
 <% end %>
