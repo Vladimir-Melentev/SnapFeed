@@ -14,3 +14,37 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold; /* Сделать текст жирным */
 }
+
+/* Общие стили для кнопок пагинации */
+.pagination .page-link {
+  background-color: #000000; /* Черный цвет фона */
+  color: #ffffff; /* Белый цвет текста */
+  border: 1px solid #000000; /* Черная граница */
+  padding: 0.375rem 0.75rem; /* Внутренние отступы */
+  margin: 0 0.25rem; /* Внешние отступы */
+  border-radius: 0.25rem; /* Закругление углов */
+}
+
+/* Стили при наведении на кнопку */
+.pagination .page-link:hover {
+  background-color: #dc3545; /* Красный цвет фона при наведении, ассоциированный с danger */
+  color: #fff; /* Белый цвет текста при наведении */
+}
+
+/* Стили для активной кнопки */
+.pagination .page-item.active .page-link {
+  background-color: #dc3545; /* Цвет активной кнопки */
+  border-color: #007bff; /* Цвет границы активной кнопки */
+}
+
+/* Стили для кнопок "Предыдущая" и "Следующая" */
+.pagination .prev .page-link, .pagination .next .page-link {
+  background-color: #000000; /* Цвет фона */
+  color: #ffffff; /* Цвет текста */
+}
+
+/* Стили при наведении на кнопки "Предыдущая" и "Следующая" */
+.pagination .prev .page-link:hover, .pagination .next .page-link:hover {
+  background-color: #555555; /* Цвет фона при наведении */
+  color: #ffffff; /* Цвет текста при наведении */
+}

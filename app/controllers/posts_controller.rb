@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     #в форме post/show создаем образец класса comment и привязываем его к посту
     @comment = @post.comments.build
     #сортируем комментарии для конкретного поста по убыванию
-    @comments = @post.comments.order created_at: :desc
+    @pagy, @comments = pagy @post.comments.order(created_at: :desc)
   end
 
   def destroy
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @pagy, @posts = pagy Post.order(created_at: :desc)
   end
 
   def new

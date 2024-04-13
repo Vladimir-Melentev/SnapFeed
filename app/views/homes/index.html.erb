@@ -2,12 +2,28 @@
 <% currently_at 'Home' %>
 
 <div style="text-align: center;">
-  <h1 class="text-danger">
-    SnapFeed
-  </h1>
-  <div>
-    <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", style: "width: 180px; height: 180px;" %>
+    <h1 class="text-danger">
+      SnapFeed
+    </h1>
+
+    <div>
+      <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", style: "width: 400px; height: 400px;" %>
+    </div>
 </div>
 
-&copy; melentev prod. <%= Time.now.year %>
-</div>
+
+<h2 class="text-danger text-center">
+    <% if user_signed_in? %>
+    I'm glad to see, you <%= current_user.name %>!
+
+    <% else %>
+    <div><%= nav_tab 'Sign Up', new_user_path,
+                    class: 'nav-link px-2 text-danger' %></div>
+    <% end %>
+</h2>
+
+<footer class="fixed-bottom text-center bg-dark text-light py-3">
+  <div class="container">
+    <div>&copy; melentev prod. <%= Time.now.year %></div>
+  </div>
+</footer>
