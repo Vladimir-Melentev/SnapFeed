@@ -4,13 +4,13 @@ class PostsController < ApplicationController
   def show
     #в форме post/show создаем образец класса comment и привязываем его к посту
     @comment = @post.comments.build
-    #сортируем все комментарии по убыванию
-    @comments = Comment.order created_at: :desc
+    #сортируем комментарии для конкретного поста по убыванию
+    @comments = @post.comments.order created_at: :desc
   end
 
   def destroy
     @post.destroy
-    flash[:success] = "Post deleted!"
+    flash[:success] = "Post deleted"
     redirect_to posts_path, notice: 'Post was successfully destroyed.'
   end
 
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update post_params
-      flash[:success] = "Post edited!"
+      flash[:success] = "Post edited"
       redirect_to posts_path
     else
       render :edit
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new post_params
     if @post.save
-      flash[:success] = "Post created!"
+      flash[:success] = "Post created"
       redirect_to posts_path
     else
       render :new

@@ -1,0 +1,19 @@
+<% #частичное представление для комментариев %>
+<%= tag.article class: "card mt-3", id: dom_id(comment) do %>
+  <div class="card-body">
+    <section class="card-text">
+      <time datetime="<%= comment.formatted_created_at %>">
+        <small><%= comment.formatted_created_at %></small>
+      </time>
+
+      <div class="mb-4 mt-4">
+        <%= comment.body %>
+      </div>
+    </section>
+
+    <%= link_to 'Edit', edit_post_comment_path(post, comment), class: 'btn btn-secondary btn-sm'%>
+    <%= link_to 'Delete', post_comment_path(post, comment), class: 'btn btn-danger btn-sm',
+                data: {method: :delete, confirm: 'Are you sure?'} %>
+  </div>
+</article>
+<% end %>

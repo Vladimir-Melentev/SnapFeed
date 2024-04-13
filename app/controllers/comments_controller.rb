@@ -1,5 +1,22 @@
 class CommentsController < ApplicationController
-  before_action :set_comment!
+  #модуль для якоря, чтобы добавить dom_id
+  include ActionView::RecordIdentifier
+
+  before_action :set_post!
+  before_action :set_comment!, except: :create
+
+  def update
+    if @comment.update comment_params
+      flash[:success] = "Comment edited"
+      #При редиректе генерирует ссылку включая якорь
+      redirect_to post_path(@post, anchor: dom_id(@comment))
+    else
+      render :edit
+    end
+  end
+
+  def edit; end
+
   def create
     @comment = @post.comments.build comment_params
 
@@ -7,16 +24,14 @@ class CommentsController < ApplicationController
       flash[:success] = "Comment created"
       redirect_to post_path(@post)
     else
-      @comments = Comment.order created_at: :desc
+      @comments = @post.comments.order created_at: :desc
       render 'posts/show'
     end
   end
 
-  def edit
-  end
+
   def destroy
-    comment = @post.comments.find params[:id]
-    comment.destroy
+    @comment.destroy
     flash[:success] = "Comment delete"
     redirect_to post_path(@post)
   end
@@ -26,8 +41,13 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:body)
   end
-  def set_comment!
+
+  def set_post!
     @post = Post.find params[:post_id]
+  end
+
+  def set_comment!
+    @comment = @post.comments.find params[:id]
   end
 
 end
