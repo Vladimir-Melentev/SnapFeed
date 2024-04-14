@@ -27,6 +27,12 @@ gem 'faker', '~> 3.3', '>= 3.3.1'
 
 gem 'pagy', '~> 6.0' # omit patch digit
 
+gem 'draper'
+
+gem "valid_email2"
+
+
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

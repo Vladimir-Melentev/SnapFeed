@@ -7,12 +7,12 @@
     </h1>
 
     <div>
-      <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", style: "width: 400px; height: 400px;" %>
+      <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", style: "width: 350px; height: 350px;" %>
     </div>
 </div>
 
 
-<h2 class="text-danger text-center">
+<h2 class="text-danger text-center mb-4">
     <% if user_signed_in? %>
     I'm glad to see, you <%= current_user.name %>!
 
@@ -22,7 +22,7 @@
     <% end %>
 </h2>
 
-<footer class="fixed-bottom text-center bg-dark text-light py-3">
+<footer class="fixed-bottom text-center bg-dark text-light py-3 mt-4">
   <div class="container">
     <div>&copy; melentev prod. <%= Time.now.year %></div>
   </div>

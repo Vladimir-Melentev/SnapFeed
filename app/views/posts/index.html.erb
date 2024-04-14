@@ -6,10 +6,12 @@
     <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", class: "logo-img", style: "width: 116px; height: 116px;" %>
   <% end %>
   <h2 class="text-danger mb-4">SnapFeed</h2>
+  <%= link_to 'New post', new_post_path, class: 'btn btn-dark btn-lg mb-3 mt-3' %>
+</div>
 
 
-<% #два знака равенства позволяют обрабатывать html разметку, как row %>
-<%== pagy_bootstrap_nav @pagy %>
+
+<%= pagination @pagy %>
 
 <% @posts.each do |post| %>
 <article class="card mt-3 mb-3">
@@ -24,10 +26,12 @@
       </p>
     </section>
 
-      <%= link_to "Show", post_path(post), class: 'btn btn-dark' %>
-      <%= link_to "Edit", edit_post_path(post), class: 'btn btn-secondary' %>
-      <%= link_to "Delete", post_path(post), class: 'btn btn-danger',
+    <div class="mt-4">
+      <%= link_to "Show", post_path(post), class: 'btn btn-dark btn-sm' %>
+      <%= link_to "Edit", edit_post_path(post), class: 'btn btn-secondary btn-sm' %>
+      <%= link_to "Delete", post_path(post), class: 'btn btn-danger btn-sm',
                   data: {method: :delete, confirm: "Are you sure?"} %>
+    </div>
   </div>
 
   <div class="mx-3 mb-4 text-secondary">
@@ -38,4 +42,4 @@
 </article>
 <% end %>
 
-<%== pagy_bootstrap_nav @pagy %>
+<%= pagination @pagy %>

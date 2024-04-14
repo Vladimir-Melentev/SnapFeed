@@ -2,10 +2,12 @@ class PostsController < ApplicationController
   before_action :set_post!, only: %i[show destroy edit update]
 
   def show
+    @post = @post.decorate
     #в форме post/show создаем образец класса comment и привязываем его к посту
     @comment = @post.comments.build
     #сортируем комментарии для конкретного поста по убыванию
     @pagy, @comments = pagy @post.comments.order(created_at: :desc)
+    @comments = @comments.decorate
   end
 
   def destroy
@@ -27,6 +29,7 @@ class PostsController < ApplicationController
 
   def index
     @pagy, @posts = pagy Post.order(created_at: :desc)
+    @posts = @posts.decorate
   end
 
   def new
