@@ -1,0 +1,27 @@
+<%= tag.article class: 'mb-3 card border-0', id: dom_id(subcomment) do %>
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-9">
+        <strong><%= subcomment.user.name %></strong>
+      </div>
+      <div class="col-sm-3 text-end">
+        <%= time_ago_in_words(subcomment.created_at) %> ago
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row g-0">
+      <div class="col-sm">
+        <p><%= subcomment.body %></p>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="float-end">
+      <%= link_to 'Delete', polymorphic_path([subcomment.subcommentable, subcomment]),
+                  class: 'btn btn-danger btn-sm',
+                  data: {method: :delete, confirm: 'Are you sure?'} %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+<% end %>

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  include PostsComments
   before_action :set_post!, only: %i[show destroy edit update]
 
   def index
@@ -9,29 +10,16 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = @post.decorate
-    # в форме post/show создаем образец класса comment и привязываем его к посту
-    @comment = @post.comments.build
-    # сортируем комментарии для конкретного поста по убыванию
-    @pagy, @comments = pagy @post.comments.order(created_at: :desc)
-    @comments = @comments.decorate
+    load_post_comments
   end
 
-  def new
-    @post = Post.new
+  def destroy
+    @post.destroy
+    flash[:success] = 'Post deleted'
+    redirect_to posts_path, notice: 'Post was successfully destroyed.'
   end
 
   def edit; end
-
-  def create
-    @post = Post.new post_params
-    if @post.save
-      flash[:success] = 'Post created'
-      redirect_to posts_path
-    else
-      render :new
-    end
-  end
 
   def update
     if @post.update post_params
@@ -42,10 +30,25 @@ class PostsController < ApplicationController
     end
   end
 
-  def destroy
-    @post.destroy
-    flash[:success] = 'Post deleted'
-    redirect_to posts_path, notice: 'Post was successfully destroyed.'
+  def index
+    @pagy, @posts = pagy Post.order(created_at: :desc)
+    @posts = @posts.decorate
+  end
+
+  def new
+    @post = Post.new
+  end
+
+
+
+  def create
+    @post = current_user.posts.build post_params
+    if @post.save
+      flash[:success] = 'Post created'
+      redirect_to posts_path
+    else
+      render :new
+    end
   end
 
   private

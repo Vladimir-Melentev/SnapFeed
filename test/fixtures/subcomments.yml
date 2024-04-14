@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body: MyString
+  sudcommentable: one
+  sudcommentable_type: Sudcommentable
+  user: one
+
+two:
+  body: MyString
+  sudcommentable: two
+  sudcommentable_type: Sudcommentable
+  user: two

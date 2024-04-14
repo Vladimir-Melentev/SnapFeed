@@ -9,8 +9,15 @@
     <%= @post.body %>
   </p>
 
-<%= link_to "Edit", edit_post_path(@post), class: 'btn btn-secondary' %>
-<%= link_to "Delete", post_path(@post), class: 'btn btn-danger',
+<div class="card-header mb-4">
+  @ <%= @post.user.name_or_email %>
+</div>
+
+<%= render 'subcomments/subcommentable', subcommentable: @post, subcomment: @subcomment,
+  html_id: 'postSubcomments' %>
+
+<%= link_to "Edit", edit_post_path(@post), class: 'btn btn-secondary mb-4' %>
+<%= link_to "Delete", post_path(@post), class: 'btn btn-danger mb-4',
             data: {method: :delete, confirm: "Are you sure?"} %>
 
 <div class="mt-2 mb-4 text-secondary">

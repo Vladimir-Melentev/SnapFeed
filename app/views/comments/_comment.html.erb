@@ -1,19 +1,34 @@
 <% #частичное представление для комментариев %>
-<%= tag.article class: "card mt-3 mb-3", id: dom_id(comment) do %>
-  <div class="card-body">
-    <section class="card-text">
-      <time datetime="<%= comment.formatted_created_at %>">
-        <small><%= comment.formatted_created_at %></small>
-      </time>
-
-      <div class="mb-4 mt-4">
-        <%= comment.body %>
+<%= tag.article class: 'mb-3 card border-0', id: dom_id(comment) do %>
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-9">
+        <strong> <%= comment.user.name %></strong>
       </div>
-    </section>
-
-    <%= link_to 'Edit', edit_post_comment_path(post, comment), class: 'btn btn-secondary btn-sm'%>
-    <%= link_to 'Delete', post_comment_path(post, comment), class: 'btn btn-danger btn-sm',
-                data: {method: :delete, confirm: 'Are you sure?'} %>
+      <div class="col-sm-3 text-end">
+        <small><time datetime="<%= comment.formatted_created_at %>">
+          <%= comment.formatted_created_at %>
+        </time></small>
+      </div>
+    </div>
   </div>
-</article>
+  <div class="card-body">
+    <div class="row g-0">
+      <div class="col-sm">
+        <p class="mb-4 mt-4"><%= comment.body %></p>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="float-end">
+      <%= link_to 'Edit', edit_post_comment_path(post, comment), class: 'btn btn-secondary btn-sm'%>
+      <%= link_to 'Delete', post_comment_path(post, comment), class: 'btn btn-danger btn-sm',
+                  data: {method: :delete, confirm: 'Are you sure?'} %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
 <% end %>
+
+<%= render 'subcomments/subcommentable', subcommentable: comment, subcomment: @subcomment,
+           html_id: dom_id(comment, 'subcomment_form') %>

@@ -1,0 +1,29 @@
+<% is_current_subcomment = subcomment&.for?(subcommentable) %>
+
+<div class="border border-dark-subtle p-3 mb-3">
+  <%= link_to 'Sub-comment ↓', "##{html_id}", class: 'btn btn-dark mb-4', data: {'bs-toggle': 'collapse'} %>
+
+  <%= tag.div class: "collapse #{'show' if is_current_subcomment}", id: html_id do %>
+    <%= form_with model: [subcommentable,
+                          (is_current_subcomment ? subcomment : subcommentable.subcomments.build)],
+                          class: 'pt-3 border-top my-2' do |f| %>
+      <% if is_current_subcomment %>
+        <%= render 'shared/errors', object: subcomment %>
+      <% end %>
+
+      <div class="mb-3 row">
+        <div class="col-sm-2 col-form-label">
+          <%= f.label :body %>
+        </div>
+
+        <div class="col-sm-10">
+          <%= f.text_area :body, class: 'form-control form-control-sm' %>
+        </div>
+      </div>
+
+      <%= f.submit 'Submit comment', class: 'btn btn-sm btn-dark mb-4' %>
+
+      <%= render subcommentable.subcomments.includes(:user).decorate %>
+    <% end %>
+  <% end %>
+</div>

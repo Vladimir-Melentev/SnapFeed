@@ -6,7 +6,13 @@ Rails.application.routes.draw do
   resources :users, only: %i[new create edit update]
 
   resources :posts do
+    resources :subcomments, only: %i[create destroy]
+
     resources :comments, except: %i[new show]
+  end
+
+  resources :comments, except: %i[new show] do
+    resources :subcomments, only: %i[create destroy]
   end
 
   namespace :admin do
