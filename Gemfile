@@ -65,6 +65,14 @@ group :development do
   gem 'rubocop-rails', require: false
 
   gem 'rubocop-performance', require: false
+
+  gem 'rubyzip'
+
+  gem 'caxlsx'
+  gem 'caxlsx_rails'
+
+  gem 'rubyXL'
+  gem 'activerecord-import'
 end
 
 group :test do
