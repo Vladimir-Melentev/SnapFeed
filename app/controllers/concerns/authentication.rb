@@ -1,23 +1,29 @@
+# frozen_string_literal: true
+
 module Authentication
   extend ActiveSupport::Concern
 
   included do
     private
 
-    #Если есть user_id, ишем пользователя который хранится в сеансе
+    # Если есть user_id, ишем пользователя который хранится в сеансе
     def current_user
       if session[:user_id].present?
         @current_user ||= User.find_by(id: session[:user_id]).decorate
       elsif cookies.encrypted[:user_id].present?
-        user = User.find_by(id: cookies.encrypted[:user_id])
-        if user&.remember_token_authenticated?(cookies.encrypted[:remember_token])
-          sign_in user
-          @current_user ||= user.decorate
-        end
+        user_from_token
       end
     end
 
-    #Вспомогательный метод, который возвращает булево значение
+    def user_from_token
+      user = User.find_by(id: cookies.encrypted[:user_id])
+      return unless user&.remember_token_authenticated?(cookies.encrypted[:remember_token])
+
+      sign_in user
+      @user_from_token ||= user.decorate
+    end
+
+    # Вспомогательный метод, который возвращает булево значение
     def user_signed_in?
       current_user.present?
     end
@@ -25,14 +31,14 @@ module Authentication
     def require_authentication
       return if user_signed_in?
 
-      flash[:warning] = "You are not signed in!"
+      flash[:warning] = 'You are not signed in!'
       redirect_to root_path
     end
 
     def require_no_authentication
       return unless user_signed_in?
 
-      flash[:warning] = "You are already signed in!"
+      flash[:warning] = 'You are already signed in!'
       redirect_to root_path
     end
 
@@ -58,7 +64,7 @@ module Authentication
       @current_user = nil
     end
 
-    #Делаем наши мтеоды херперами, чтобы были доступны в вью
+    # Делаем наши мтеоды херперами, чтобы были доступны в вью
     helper_method :current_user, :user_signed_in?
-   end
   end
+end
