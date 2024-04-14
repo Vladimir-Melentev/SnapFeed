@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :set_post!, only: %i[show destroy edit update]
 
   def index
-    @pagy, @posts = pagy Post.order(created_at: :desc)
+    @pagy, @posts = pagy Post.include(:user).order(created_at: :desc)
     @posts = @posts.decorate
   end
 
