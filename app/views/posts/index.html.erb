@@ -9,6 +9,28 @@
   <%= link_to 'New post', new_post_path, class: 'btn btn-dark btn-lg mb-3 mt-3' %>
 </div>
 
+<small><section class="mb-5">
+  <%= form_with url: posts_path, method: :get do |f| %>
+    <div class="mb-3">
+      <%= f.submit 'Search by tags', class: 'btn btn-secondary mb-4' %>
+      <%= f.collection_select :tag_ids, (@tags || []), :id, :title, {selected: params[:tag_ids]},
+                              multiple: true, required: true,
+                              class: 'js-multiple-select js-ajax-select w-100'%>
+      <button class="btn btn-secondary dropdown-toggle mt-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-chevron-down"></i>
+
+      </button>
+      <ul class="dropdown-menu">
+        <% @tags.each do |tag| %>
+          <li><%= f.check_box :tag_ids, { multiple: true }, tag.id, nil %> <%= tag.title %></li>
+        <% end %>
+      </ul>
+    </div>
+
+
+  <% end %>
+</section></small>
+
 <%= pagination @pagy %>
 
 <%= render @posts %>>

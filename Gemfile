@@ -71,8 +71,8 @@ group :development do
   gem 'caxlsx'
   gem 'caxlsx_rails'
 
-  gem 'rubyXL'
   gem 'activerecord-import'
+  gem 'rubyXL'
 end
 
 group :test do

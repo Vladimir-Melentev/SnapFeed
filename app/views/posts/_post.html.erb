@@ -6,6 +6,10 @@
   <div class="card-body">
     <h5><%= post.title %></h5>
 
+    <div class="my-2">
+      <%= render post.tags %>
+    </div>
+
     <section class="card-text">
       <p class="my-2">
         <%= truncate(strip_tags(post.body), length: 70) %>

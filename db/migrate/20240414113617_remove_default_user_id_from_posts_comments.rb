@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveDefaultUserIdFromPostsComments < ActiveRecord::Migration[7.1]
   def up
     change_column_default :posts, :user_id, from: User.first.id, to: nil

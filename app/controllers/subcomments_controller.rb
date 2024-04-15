@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubcommentsController < ApplicationController
   include PostsComments
   before_action :set_subcommentable!
@@ -7,10 +9,10 @@ class SubcommentsController < ApplicationController
     @subcomment = @subcommentable.subcomments.build subcomment_params
 
     if @subcomment.save
-      flash[:success] = "Comment created"
+      flash[:success] = 'Comment created'
       redirect_to post_path(@post)
     else
-      @subcomment =@subcomment.decorate
+      @subcomment = @subcomment.decorate
       load_post_comments do_render: true
     end
   end
@@ -18,7 +20,7 @@ class SubcommentsController < ApplicationController
   def destroy
     subcomment = @subcommentable.subcomments.find params[:id]
     subcomment.destroy
-    flash[:success] = "Sub-comment delete!"
+    flash[:success] = 'Sub-comment delete!'
     redirect_to post_path(@post)
   end
 
