@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  include Authorship
   include Subcommentable
 
   # Позволит удалить пост вместе с комментариями
@@ -12,16 +13,15 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2 }
   validates :body, presence: true, length: { minimum: 2 }
 
-  #метод класса который можем вызвать
-  scope :all_by_tags, ->(tags) do
+  # метод класса который можем вызвать
+  scope :all_by_tags, lambda { |tags|
     posts = includes(:user)
-    if tags
-      posts = posts.joins(:tags).where(tags: tags).preload(:tags)
-    else
-      posts = posts.includes(:post_tags, :tags)
-    end
+    posts = if tags
+              posts.joins(:tags).where(tags: tags).preload(:tags)
+            else
+              posts.includes(:post_tags, :tags)
+            end
 
     posts.order(created_at: :desc)
-  end
+  }
 end
-

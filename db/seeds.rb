@@ -8,7 +8,6 @@
 # end
 
 30.times do
-  title = Faker::Hipster.word
+  title = Faker::Book.genre
   Tag.create title: title
 end
-

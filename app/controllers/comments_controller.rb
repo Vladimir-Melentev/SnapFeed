@@ -7,6 +7,9 @@ class CommentsController < ApplicationController
 
   before_action :set_post!
   before_action :set_comment!, except: :create
+  before_action :authorize_comment!
+  # метод пандит на права доступа
+  after_action :verify_authorized
 
   def edit; end
 
@@ -53,5 +56,9 @@ class CommentsController < ApplicationController
 
   def set_comment!
     @comment = @post.comments.find params[:id]
+  end
+
+  def authorize_comment!
+    authorize(@comment || Post)
   end
 end

@@ -17,6 +17,14 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, 'valid_email_2/email': true
   validate :password_complexity
 
+  def guest?
+    false
+  end
+
+  def author?(obj)
+    obj.user == self
+  end
+
   def remember_me
     self.remember_token = SecureRandom.urlsafe_base64
     update_column :remember_token_digest, digest(remember_token)

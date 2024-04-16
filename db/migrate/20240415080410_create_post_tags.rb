@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePostTags < ActiveRecord::Migration[7.1]
   def change
     create_table :post_tags do |t|
@@ -7,7 +9,7 @@ class CreatePostTags < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    #чтобы не появилось двух одинаковых записей
-    add_index :post_tags, [:post_id, :tag_id], unique: true
+    # чтобы не появилось двух одинаковых записей
+    add_index :post_tags, %i[post_id tag_id], unique: true
   end
 end

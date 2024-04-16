@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
+  include Authorship
   include Subcommentable
 
   belongs_to :post

@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 module Admin
-  class UsersController < ApplicationController
+  class UsersController < BaseController
     before_action :require_authentication
     before_action :set_user!, only: %i[edit update destroy]
+    before_action :authorize_user!
+    # метод пандит на права доступа
+    after_action :verify_authorized
+
     def index
       respond_to do |format|
         format.html do
@@ -14,6 +18,8 @@ module Admin
       end
     end
 
+    def edit; end
+
     def create
       if params[:archive].present?
         UserBulkService.call params[:archive]
@@ -23,12 +29,9 @@ module Admin
       redirect_to admin_users_path
     end
 
-    def edit
-    end
-
     def update
       if @user.update user_params
-        flash[:success] = "User update"
+        flash[:success] = 'User update'
         redirect_to admin_users_path
       else
         render :edit
@@ -37,7 +40,7 @@ module Admin
 
     def destroy
       @user.destroy
-      flash[:success] = "User delete"
+      flash[:success] = 'User delete'
       redirect_to admin_users_path
     end
 
@@ -48,8 +51,7 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(:email, :name, :password, :password_confirmation, :role
-      ).merge(admin_edit: true)
+      params.require(:user).permit(:email, :name, :password, :password_confirmation, :role).merge(admin_edit: true)
     end
 
     def respond_with_zipped_users
@@ -65,6 +67,10 @@ module Admin
 
       compressed_filestream.rewind
       send_data compressed_filestream.read, filename: 'users.zip'
+    end
+
+    def authorize_user!
+      authorize(@user || User)
     end
   end
 end

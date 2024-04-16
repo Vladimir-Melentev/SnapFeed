@@ -21,9 +21,14 @@
   </div>
   <div class="card-footer">
     <div class="float-end">
+      <% if policy(comment).edit? %>
       <%= link_to 'Edit', edit_post_comment_path(post, comment), class: 'btn btn-secondary btn-sm'%>
+        <% end %>
+
+      <% if policy(comment).destroy? %>
       <%= link_to 'Delete', post_comment_path(post, comment), class: 'btn btn-danger btn-sm',
                   data: {method: :delete, confirm: 'Are you sure?'} %>
+        <% end %>
     </div>
     <div class="clearfix"></div>
   </div>

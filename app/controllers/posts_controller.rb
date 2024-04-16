@@ -2,8 +2,12 @@
 
 class PostsController < ApplicationController
   include PostsComments
+  before_action :require_authentication, except: %i[show index]
   before_action :set_post!, only: %i[show destroy edit update]
   before_action :fetch_tags, only: %i[new edit]
+  before_action :authorize_post!
+  # метод пандит на права доступа
+  after_action :verify_authorized
 
   def index
     @pagy, @posts = pagy Post.all_by_tags(params[:tag_ids])
@@ -59,5 +63,10 @@ class PostsController < ApplicationController
 
   def fetch_tags
     @tags = Tag.all
+  end
+
+  # authorize метод пандит, имеет ли пользователь право на вылолнение
+  def authorize_post!
+    authorize(@post || Post)
   end
 end

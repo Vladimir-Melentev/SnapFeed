@@ -1,25 +1,37 @@
 <%provide :page_title, @post.title %>
 <% currently_at 'Feed' %>
 
-<h3 class="mb-2 text-danger">
-  <%= @post.title %>
-</h3>
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    <h3 class="card-title mb-0">
+      <%= @post.title %>
+    </h3>
+  </div>
 
-  <p class="lead my-2 mb-4">
-    <%= @post.body %>
-  </p>
+  <div class="card-body">
+    <p class="card-text lead mb-4">
+      <%= @post.body %>
+    </p>
 
-<div class="card-header mb-4">
-  @ <%= @post.user.name_or_email %>
+    <div class="card-footer">
+      <span class="text-muted">
+        Posted by <%= @post.user.name_or_email %>
+      </span>
+    </div>
+  </div>
 </div>
 
 <%= render 'subcomments/subcommentable', subcommentable: @post, subcomment: @subcomment,
   html_id: 'postSubcomments' %>
 
-<%= link_to "Edit", edit_post_path(@post), class: 'btn btn-secondary mb-4' %>
-<%= link_to "Delete", post_path(@post), class: 'btn btn-danger mb-4',
-            data: {method: :delete, confirm: "Are you sure?"} %>
+<% if policy(@post).edit? %>
+  <%= link_to "Edit", edit_post_path(@post), class: 'btn btn-secondary mb-4' %>
+<% end %>
 
+<% if policy(@post).destroy? %>
+  <%= link_to "Delete", post_path(@post), class: 'btn btn-danger mb-4',
+              data: {method: :delete, confirm: "Are you sure?"} %>
+<% end %>
 <div class="mt-2 mb-4 text-secondary">
   <time datetime="<%= @post.formatted_created_at %>">
     <%= @post.formatted_created_at %>

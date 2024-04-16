@@ -4,9 +4,11 @@ class SubcommentsController < ApplicationController
   include PostsComments
   before_action :set_subcommentable!
   before_action :set_post
+  after_action :verify_authorized
 
   def create
     @subcomment = @subcommentable.subcomments.build subcomment_params
+    authorize @subcomment
 
     if @subcomment.save
       flash[:success] = 'Comment created'
@@ -19,6 +21,8 @@ class SubcommentsController < ApplicationController
 
   def destroy
     subcomment = @subcommentable.subcomments.find params[:id]
+    authorize subcomment
+
     subcomment.destroy
     flash[:success] = 'Sub-comment delete!'
     redirect_to post_path(@post)

@@ -6,7 +6,9 @@
     <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", class: "logo-img", style: "width: 116px; height: 116px;" %>
   <% end %>
   <h2 class="text-danger mb-4">SnapFeed</h2>
-  <%= link_to 'New post', new_post_path, class: 'btn btn-dark btn-lg mb-3 mt-3' %>
+  <% if policy(:post).new? %>
+    <%= link_to 'New post', new_post_path, class: 'btn btn-dark btn-lg mb-3 mt-3' %>
+  <% end %>
 </div>
 
 <small><section class="mb-5">

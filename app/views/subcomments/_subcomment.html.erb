@@ -18,9 +18,11 @@
   </div>
   <div class="card-footer">
     <div class="float-end">
+      <% if policy(subcomment).destroy? %>
       <%= link_to 'Delete', polymorphic_path([subcomment.subcommentable, subcomment]),
                   class: 'btn btn-danger btn-sm',
                   data: {method: :delete, confirm: 'Are you sure?'} %>
+        <% end %>
     </div>
     <div class="clearfix"></div>
   </div>
