@@ -1,4 +1,4 @@
-<article class="card mt-3 mb-3">
+<article class="card mt-3 mb-3 text-center mx-auto" style="max-width: 600px;"> <!-- Добавлены классы text-center и mx-auto -->
   <section class="card-header">
     <%= post.user.name_or_email %>
   </section>
@@ -14,8 +14,12 @@
       <p class="my-2">
         <%= truncate(strip_tags(post.body), length: 70) %>
       </p>
+      <div class="img-container">
+        <% if post.image.present? %>
+          <%= image_tag post.image_url %>
+        <% end %>
+      </div>
     </section>
-
 
     <div class="mt-4">
       <%= link_to "Answers & Edit", post_path(post), class: 'btn btn-dark btn-sm' %>
