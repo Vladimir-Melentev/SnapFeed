@@ -21,6 +21,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @tags = Tag.all
   end
 
   def edit; end
@@ -53,7 +54,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, tag_ids: [])
+    params.require(:post).permit(:title, :body, :image, tag_ids: [])
   end
 
   def set_post!
