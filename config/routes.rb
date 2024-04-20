@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
   resource :session, only: %i[new create destroy]
 
+  resources :likes, only: %i[create destroy]
+
   resources :users, only: %i[new create edit update show] do
     resource :follows, only: [:create, :destroy], controller: 'follows'
   end

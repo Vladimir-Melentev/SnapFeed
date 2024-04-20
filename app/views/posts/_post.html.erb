@@ -38,7 +38,8 @@
     </div>
   </div>
 
-  
+ <%= render partial: 'likes/like', locals: { post: post } %>
+
 
   <div class="mx-3 mb-4 text-secondary">
     <time datetime="<%= post.formatted_created_at %>">

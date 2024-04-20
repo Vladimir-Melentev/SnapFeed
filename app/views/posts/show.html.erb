@@ -54,6 +54,8 @@
 <% end %>
 </div>
 
+<%= render partial: 'likes/like', locals: { post: @post } %>
+
 <div class="mt-2 mb-4 text-secondary">
   <time datetime="<%= @post.formatted_created_at %>">
     <%= @post.formatted_created_at %>
@@ -67,6 +69,7 @@
 <h5 class="mb-4 mt-4 text-danger">
   Write your comment
 </h5>
+
 
 <%= render 'comments/form' %>
 

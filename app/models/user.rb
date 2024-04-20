@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
 
+  has_many :likes, dependent: :destroy
+
   has_many :follows, dependent: :destroy      
 
   has_many :follower_relationships, foreign_key: "following_id", class_name: "Follow"

@@ -1,0 +1,9 @@
+<div class="like">
+  <span class="like-count">&#10084; <%= like_count(post) %></span>
+  <% if current_user_liked_a_post(post) %>
+    <%= button_to "Dislike", like_path(current_user_liked_a_post(post)), method: :delete %>
+  <% else %>
+    <%= button_to "Like", likes_path, params: { like: { post_id: post.id } }, method: :post %>
+  <% end %>
+</div>
+
