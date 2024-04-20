@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   before_action :require_no_authentication, only: %i[new create]
   before_action :require_authentication, only: %i[edit update]
-  before_action :set_user!, only: %i[edit update]
+  before_action :set_user!, only: %i[edit update show]
   before_action :authorize_user!
   # метод пандит на права доступа
   after_action :verify_authorized
@@ -11,6 +11,10 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
+  
+   def show
+
+   end
 
   def edit; end
 

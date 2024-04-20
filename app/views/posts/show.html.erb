@@ -27,6 +27,18 @@
   </div>
 </div>
 
+<% if current_user.model && current_user.model != @post.user %>
+  <div class="mt-2 mb-4">
+    <% if current_user.model.following?(@post.user) %>
+      <%= link_to "Unfollow", user_follows_path(@post.user), method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Follow", user_follows_path(@post.user), method: :post, class: "btn btn-dark" %>
+    <% end %>
+  </div>
+<% end %>
+
+
+
 <%# Пока в раздумьях нужны ли тут вопросы %>
 <% render 'subcomments/subcommentable', subcommentable: @post, subcomment: @subcomment,
   html_id: 'postSubcomments' %>

@@ -6,6 +6,14 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
 
+  has_many :follows, dependent: :destroy      
+
+  has_many :follower_relationships, foreign_key: "following_id", class_name: "Follow"
+  has_many :followers, through: :follower_relationships, source: :follower
+  
+  has_many :following_relationships, foreign_key: "user_id", class_name: "Follow"
+  has_many :following, through: :following_relationships, source: :following
+  
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -16,6 +24,18 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, 'valid_email_2/email': true
   validate :password_complexity
+  
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  def follow(user_id)
+    following_relationships.create(following_id: user_id)
+  end
+
+  def unfollow(user_id)
+    following_relationships.find_by(following_id: user_id).destroy
+  end
 
   def guest?
     false
