@@ -1,32 +1,11 @@
 <% provide :page_title, 'Feed' %>
 <% currently_at 'Feed' %>
 
-<div class="text-center"> <!-- Добавлен класс text-center -->
-  <%= link_to root_path do %>
-    <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", class: "logo-img", style: "width: 116px; height: 116px;" %>
+<div class="text-center">
+<%= link_to root_path do %>
+    <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", class: "logo-img", style: "width: 80px; height: 80px;" %>
   <% end %>
-  <h2 class="text-danger mb-4">SnapFeed</h2>
-  <% if policy(:post).new? %>
-    <%= link_to 'New post', new_post_path, class: 'btn btn-dark btn-lg mb-3 mt-3' %>
-  <% end %>
-</div>
 
-<div class="container text-center"> <!-- Добавлен класс text-center -->
-  <%= form_with model: @post, url: posts_path, method: :post, local: true do |f| %>
-    <div class="mb-3">
-      <%= f.submit 'Search by tags', class: 'btn btn-dark btn-sm me-2' %>
-      <div class="dropdown d-inline">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-          Tags
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <% @tags.each do |tag| %>
-            <li><%= f.check_box :tag_ids, { multiple: true }, tag.id, nil %> <%= tag.title %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
 </div>
 
 <%= pagination @pagy %>

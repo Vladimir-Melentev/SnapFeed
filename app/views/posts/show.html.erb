@@ -1,6 +1,7 @@
 <%provide :page_title, @post.title %>
 <% currently_at 'Feed' %>
 
+<article class="card mt-3 mb-3 text-center mx-auto" style="max-width: 600px;">
 <div class="card mb-4">
   <div class="card-header bg-dark text-white">
     <h3 class="card-title mb-0">
@@ -12,8 +13,13 @@
     <p class="card-text lead mb-4">
       <%= @post.body %>
     </p>
+    <div class="img-container">
+        <% if @post.image.present? %>
+          <%= image_tag @post.image_url %>
+        <% end %>
+      </div>
 
-    <div class="card-footer">
+    <div class="card-footer mt-2">
       <span class="text-muted">
         Posted by <%= @post.user.name_or_email %>
       </span>
@@ -21,9 +27,11 @@
   </div>
 </div>
 
-<%= render 'subcomments/subcommentable', subcommentable: @post, subcomment: @subcomment,
+<%# Пока в раздумьях нужны ли тут вопросы %>
+<% render 'subcomments/subcommentable', subcommentable: @post, subcomment: @subcomment,
   html_id: 'postSubcomments' %>
 
+<div>
 <% if policy(@post).edit? %>
   <%= link_to "Edit", edit_post_path(@post), class: 'btn btn-secondary mb-4' %>
 <% end %>
@@ -32,11 +40,15 @@
   <%= link_to "Delete", post_path(@post), class: 'btn btn-danger mb-4',
               data: {method: :delete, confirm: "Are you sure?"} %>
 <% end %>
+</div>
+
 <div class="mt-2 mb-4 text-secondary">
   <time datetime="<%= @post.formatted_created_at %>">
     <%= @post.formatted_created_at %>
   </time>
 </div>
+
+</article>
 
 <hr class="my-4">
 
@@ -61,3 +73,4 @@
            as: :comment, locals: {post: @post} %>
 
 <%= pagination @pagy %>
+
