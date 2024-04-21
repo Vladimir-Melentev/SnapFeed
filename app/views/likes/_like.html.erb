@@ -1,9 +1,12 @@
-<div class="like">
-  <span class="like-count">&#10084; <%= like_count(post) %></span>
-  <% if current_user_liked_a_post(post) %>
-    <%= button_to "Dislike", like_path(current_user_liked_a_post(post)), method: :delete %>
-  <% else %>
-    <%= button_to "Like", likes_path, params: { like: { post_id: post.id } }, method: :post %>
+<div class="like mb-2 mt-2">
+  <span class="like-count" style="font-weight: bold;">
+    &#10084; <%= like_count(post) %>
+  </span>
+  <% if user_signed_in? %>
+    <% if current_user_liked_a_post(post) %>
+      <%= button_to "Unlike", like_path(current_user_liked_a_post(post)), method: :delete, class: "btn btn-danger btn-sm ms-2" %>
+    <% else %>
+      <%= button_to "Like", likes_path, params: { like: { post_id: post.id } }, method: :post, class: "btn btn-dark btn-sm ms-2" %>
+    <% end %>
   <% end %>
 </div>
-

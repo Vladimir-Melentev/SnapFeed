@@ -8,13 +8,11 @@ class UsersController < ApplicationController
   # метод пандит на права доступа
   after_action :verify_authorized
 
+  def show; end
+
   def new
     @user = User.new
   end
-  
-   def show
-
-   end
 
   def edit; end
 

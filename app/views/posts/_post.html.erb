@@ -1,7 +1,7 @@
-<article class="card mt-3 mb-3 text-center mx-auto" style="max-width: 600px;"> 
+<article class="card mt-3 mb-3 text-center mx-auto" style="max-width: 400px;"> 
   <section class="card-header">
-    <%= post.user.name_or_email %>
-  </section>
+  <%= link_to post.user.name_or_email, user_posts_path(post.user), class: "user-profile-link" %>
+</section>
 
   <div class="card-body">
 
@@ -39,7 +39,6 @@
   </div>
 
  <%= render partial: 'likes/like', locals: { post: post } %>
-
 
   <div class="mx-3 mb-4 text-secondary">
     <time datetime="<%= post.formatted_created_at %>">

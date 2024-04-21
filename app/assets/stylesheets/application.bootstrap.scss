@@ -2,6 +2,21 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import "bootstrap/scss/transitions";
 
+.like-count {
+  color: #a21c1c; /* бордовый цвет */
+  font-size: 16px; /* Размер шрифта */
+  margin-right: 5px; /* Отступ справа */
+}
+
+.user-profile-link {
+  color: #000000; /* Цвет ссылки */
+  text-decoration: none; /* Убираем подчеркивание */
+  font-weight: bold; /* Жирный шрифт */
+}
+
+.user-profile-link:hover {
+  text-decoration: underline; /* Подчеркиваем при наведении */
+}
 
 .card {
   width: 500px;

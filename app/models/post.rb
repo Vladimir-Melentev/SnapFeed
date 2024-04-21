@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   include ImageUploader::Attachment(:image)
 
   has_many :likes, dependent: :destroy
-  
+
   # Позволит удалить пост вместе с комментариями
   has_many :comments, dependent: :destroy
   belongs_to :user

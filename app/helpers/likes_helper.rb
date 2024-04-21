@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LikesHelper
   def like_count(post)
     Like.where(post_id: post.id).count
@@ -7,4 +9,3 @@ module LikesHelper
     current_user&.likes&.find_by(post: post)
   end
 end
-

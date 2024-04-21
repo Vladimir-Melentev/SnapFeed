@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   resources :likes, only: %i[create destroy]
 
   resources :users, only: %i[new create edit update show] do
-    resource :follows, only: [:create, :destroy], controller: 'follows'
+    resource :follows, only: %i[create destroy], controller: 'follows'
+    
+     # Вложенный ресурс для просмотра всех постов пользователя
+    resources :posts, only: :index 
   end
 
   resources :posts do
