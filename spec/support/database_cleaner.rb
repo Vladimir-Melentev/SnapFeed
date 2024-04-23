@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -9,5 +11,4 @@ RSpec.configure do |config|
       example.run
     end
   end
-
 end

@@ -93,4 +93,4 @@ gem 'sequel'
 
 gem 'shrine'
 
-gem "factory_bot", "~> 6.4"
+gem 'factory_bot', '~> 6.4'

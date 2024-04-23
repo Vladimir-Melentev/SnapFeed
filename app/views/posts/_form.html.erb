@@ -26,7 +26,7 @@
       <%= f.collection_select :tag_ids, @tags, :id, :title, {}, multiple: true,
                               class: 'form-select js-multiple-select js-ajax-select',
                               id: 'post_tag_ids' %>
-      <!-- <label for="post_tag_ids" class="form-label">Select Tags</label> -->
+      
       <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-chevron-down"></i>
       </button>
@@ -37,6 +37,7 @@
       </ul>
     </div>
   </div>
+  
   <div class="mb-4 mt-4 mx-4">
   <%= f.submit 'Save post', class: 'btn btn-dark' %>
 <% end %>
