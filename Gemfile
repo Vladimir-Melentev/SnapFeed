@@ -54,6 +54,10 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
 
   gem 'faker', '~> 3.3', '>= 3.3.1'
+
+  gem 'rspec-rails', '~> 6.1.0'
+
+  gem 'ffaker'
 end
 
 group :development do
@@ -79,6 +83,14 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'selenium-webdriver'
+
+  gem 'database_cleaner-active_record'
 end
 
 gem 'pundit', '~> 2.3'
+
+gem 'sequel'
+
+gem 'shrine'
+
+gem 'factory_bot', '~> 6.4'

@@ -1,0 +1,31 @@
+<%provide :page_title, 'Following' %>
+<% currently_at 'Following' %>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-danger text-white">
+          <h3 class="card-title mb-0">Following</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+          
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <% if current_user && current_user.following?(@user) %>
+              <h4>Followed this user.</h4>
+              <%= link_to "Unfollow", user_follows_path(@user), class: 'btn btn-danger mb-4 mt-4', method: :delete %>
+              <% elsif current_user %>
+              <h4>Unfollowed this user.</h4>
+              <%= link_to "Follow", user_follows_path(@user), class: 'btn btn-dark mb-4 mt-4', method: :post %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

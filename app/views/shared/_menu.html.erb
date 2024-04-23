@@ -14,6 +14,20 @@
           <% end %>
         </ul>
 
+        <div class="text-center">
+          <% if policy(:post).new? %>
+          <%= link_to 'New post', new_post_path, class: 'btn btn-danger' %>
+         <% end %>
+        </div>
+
+<form class="d-flex ms-lg-auto" action="<%= posts_path %>" method="get">
+  <div class="input-group input-group-sm">
+    <%= select_tag 'tag_ids[]', options_from_collection_for_select(@tags || [], :id, :title, params[:tag_ids]),
+     {include_blank: true, multiple: true, class: 'form-select', style: 'height: 30px;'} %>
+    <button class="btn btn-outline-secondary" type="submit">Search</button>
+  </div>
+</form>
+
         <ul class="nav col-12 col-lg-auto mb-2 mb-md-0">
           <% if user_signed_in? %>
             <li class="dropdown">

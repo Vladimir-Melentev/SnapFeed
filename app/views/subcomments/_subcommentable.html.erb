@@ -1,7 +1,7 @@
 <% is_current_subcomment = subcomment&.for?(subcommentable) %>
 <% comment_builder = is_current_subcomment ? subcomment : subcommentable.subcomments.build %>
 
-<div class="border border-dark-subtle p-3 mb-3">
+<div class="card border border-dark-subtle p-3 mb-3">
   <%= link_to 'Answers ↓', "##{html_id}", class: 'btn btn-dark mb-4', data: {'bs-toggle': 'collapse'} %>
 
   <%= tag.div class: "collapse #{'show' if is_current_subcomment}", id: html_id do %>

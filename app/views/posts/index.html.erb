@@ -2,39 +2,14 @@
 <% currently_at 'Feed' %>
 
 <div class="text-center">
-  <%= link_to root_path do %>
-    <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", class: "logo-img", style: "width: 116px; height: 116px;" %>
+<%= link_to root_path do %>
+    <%= image_tag "logo.jpeg", alt: "Логотип SnapFeed", class: "logo-img", style: "width: 80px; height: 80px;" %>
   <% end %>
-  <h2 class="text-danger mb-4">SnapFeed</h2>
-  <% if policy(:post).new? %>
-    <%= link_to 'New post', new_post_path, class: 'btn btn-dark btn-lg mb-3 mt-3' %>
-  <% end %>
+
 </div>
-
-<small><section class="mb-5">
-  <%= form_with url: posts_path, method: :get do |f| %>
-    <div class="mb-3">
-      <%= f.submit 'Search by tags', class: 'btn btn-secondary mb-4' %>
-      <%= f.collection_select :tag_ids, (@tags || []), :id, :title, {selected: params[:tag_ids]},
-                              multiple: true, required: true,
-                              class: 'js-multiple-select js-ajax-select w-100'%>
-      <button class="btn btn-secondary dropdown-toggle mt-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-chevron-down"></i>
-
-      </button>
-      <ul class="dropdown-menu">
-        <% @tags.each do |tag| %>
-          <li><%= f.check_box :tag_ids, { multiple: true }, tag.id, nil %> <%= tag.title %></li>
-        <% end %>
-      </ul>
-    </div>
-
-
-  <% end %>
-</section></small>
 
 <%= pagination @pagy %>
 
-<%= render @posts %>>
+<%= render @posts %>
 
 <%= pagination @pagy %>

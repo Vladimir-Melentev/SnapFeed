@@ -1,10 +1,17 @@
-<article class="card mt-3 mb-3">
+<article class="card mt-3 mb-3 text-center mx-auto" style="max-width: 400px;"> 
   <section class="card-header">
-    <%= post.user.name_or_email %>
-  </section>
+  <%= link_to post.user.name_or_email, user_posts_path(post.user), class: "user-profile-link" %>
+</section>
 
   <div class="card-body">
-    <h5><%= post.title %></h5>
+
+    <div class="img-container">
+        <% if post.image.present? %>
+          <%= image_tag post.image_url %>
+        <% end %>
+      </div>
+
+    <h5 class="mt-3"><%= post.title %></h5>
 
     <div class="my-2">
       <%= render post.tags %>
@@ -14,8 +21,8 @@
       <p class="my-2">
         <%= truncate(strip_tags(post.body), length: 70) %>
       </p>
+      
     </section>
-
 
     <div class="mt-4">
       <%= link_to "Answers & Edit", post_path(post), class: 'btn btn-dark btn-sm' %>
@@ -30,6 +37,8 @@
       <% end %>
     </div>
   </div>
+
+ <%= render partial: 'likes/like', locals: { post: post } %>
 
   <div class="mx-3 mb-4 text-secondary">
     <time datetime="<%= post.formatted_created_at %>">
