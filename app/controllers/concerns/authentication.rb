@@ -64,7 +64,7 @@ module Authentication
       @current_user = nil
     end
 
-    # Делаем наши мтеоды херперами, чтобы были доступны в вью
+    # Делаем наши мтеоды хелперами, чтобы были доступны в вью
     helper_method :current_user, :user_signed_in?
   end
 end
