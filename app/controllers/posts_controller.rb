@@ -10,10 +10,22 @@ class PostsController < ApplicationController
   after_action :verify_authorized
 
   def index
-    @pagy, @posts = pagy Post.all_by_tags(params[:tag_ids])
+    if params[:user_id].present?
+      @user = User.find_by(id: params[:user_id])
+      unless @user
+        flash[:alert] = "Пользователь не найден"
+        redirect_to root_path
+        return
+      end
+    end
+  
+    posts_relation = @user ? @user.posts : Post
+    @pagy, @posts = pagy posts_relation.all_by_tags(params[:tag_ids])
     @posts = @posts.decorate
     @tags = Tag.all
   end
+  
+  
 
   def show
     load_post_comments
@@ -21,6 +33,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @tags = Tag.all
   end
 
   def edit; end
@@ -36,6 +49,9 @@ class PostsController < ApplicationController
   end
 
   def update
+    # Удаление пустых значений и дубликатов из tag_ids
+    params[:post][:tag_ids].reject!(&:empty?).uniq!
+
     if @post.update post_params
       flash[:success] = 'Post edited'
       redirect_to posts_path
@@ -53,7 +69,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, tag_ids: [])
+    params.require(:post).permit(:title, :body, :image, tag_ids: [])
   end
 
   def set_post!

@@ -9,7 +9,7 @@ module Authentication
     # Если есть user_id, ишем пользователя который хранится в сеансе
     def current_user
       if session[:user_id].present?
-        @current_user ||= User.find_by(id: session[:user_id]).decorate
+        @current_user ||= User.find_by(id: session[:user_id])&.decorate
       elsif cookies.encrypted[:user_id].present?
         user_from_token
       end

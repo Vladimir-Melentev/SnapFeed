@@ -1,24 +1,31 @@
-# README
+# READM
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Description
 
-Things you may want to cover:
+Insta is a Ruby on Rails web application that emulates the basic functionalities of the Instagram application like
+posting a picture, liking and commenting on it, following and unfollowing a user account, and updating a user profile.
 
-* Ruby version
+# User Story
 
-* System dependencies
+With this application, users are able to :
 
-* Configuration
+* Sign in to the application to start using.
+* Upload my pictures to the application.
+* See his profile with all his pictures.
+* Follow other users and see their pictures in his feed.
+* Like a picture and leave a comment on it.
 
-* Database creation
 
-* Database initialization
+# Setup/Installation
 
-* How to run the test suite
+## Database
+1. Create DB `bin/rails db:create`
+2. Migrate `bin/rails db:migrate`
 
-* Services (job queues, cache servers, search engines, etc.)
+# Running the Application
 
-* Deployment instructions
+## Run main application
+`bin/rails s`
 
-* ...
+## Run tests
+`bin/rails spec`

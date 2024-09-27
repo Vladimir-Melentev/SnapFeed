@@ -3,6 +3,9 @@
 class Post < ApplicationRecord
   include Authorship
   include Subcommentable
+  include ImageUploader::Attachment(:image)
+
+  has_many :likes, dependent: :destroy
 
   # Позволит удалить пост вместе с комментариями
   has_many :comments, dependent: :destroy

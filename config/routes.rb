@@ -3,7 +3,14 @@
 Rails.application.routes.draw do
   resource :session, only: %i[new create destroy]
 
-  resources :users, only: %i[new create edit update]
+  resources :likes, only: %i[create destroy]
+
+  resources :users, only: %i[new create edit update show] do
+    resource :follows, only: %i[create destroy], controller: 'follows'
+    
+     # Вложенный ресурс для просмотра всех постов пользователя
+    resources :posts, only: :index 
+  end
 
   resources :posts do
     resources :subcomments, only: %i[create destroy]

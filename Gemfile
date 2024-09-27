@@ -82,3 +82,5 @@ group :test do
 end
 
 gem 'pundit', '~> 2.3'
+gem 'sequel'
+gem 'shrine'

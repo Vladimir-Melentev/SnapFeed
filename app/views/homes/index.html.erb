@@ -14,7 +14,7 @@
 </div>
 
 
-<h2 class="text-danger text-center mb-4">
+<h4 class="text-danger text-center mb-4">
     <% if user_signed_in? %>
     I'm glad to see, you <%= current_user.name %>!
 
@@ -22,7 +22,7 @@
     <div><%= nav_tab 'Sign Up', new_user_path,
                     class: 'nav-link px-2 text-danger' %></div>
     <% end %>
-</h2>
+</h4>
 
 <footer class="fixed-bottom text-center bg-dark text-light py-3 mt-4">
   <div class="container">
